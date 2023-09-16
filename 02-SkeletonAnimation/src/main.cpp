@@ -83,6 +83,15 @@ Model modelDartLegoRightHand;
 Model modelDartLegoLeftLeg;
 Model modelDartLegoRightLeg;
 
+//Model mayow
+Model modelMayow;
+//Model bob
+Model modelBob;
+//Model cowboy
+Model modelCowboy;
+//Model cyborg
+Model modelCyborg;
+
 // Buzz
 Model modelBuzzTorso;
 Model modelBuzzHead;
@@ -161,8 +170,9 @@ int maxNumPasosBuzz = 100;
 int numPasosBuzz = 0;
 
 // Var animate helicopter
-float rotHelHelY = 0.0;
-float rotHelHelBack = 0.0;
+float rotHelHelY = 20.0;
+float rotHelHelBack = 20.0;
+float avHeli = 0.5;
 
 // Var animate lambo dor
 int stateDoor = 0;
@@ -318,7 +328,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelDartLegoLeftLeg.setShader(&shaderMulLighting);
 	modelDartLegoRightLeg.loadModel("../models/LegoDart/LeoDart_right_leg.obj");
 	modelDartLegoRightLeg.setShader(&shaderMulLighting);
-
 	
 	// Buzz
 	modelBuzzTorso.loadModel("../models/buzz/buzzlightyTorso.obj");
@@ -331,6 +340,22 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelBuzzLeftForeArm.setShader(&shaderMulLighting);
 	modelBuzzLeftHand.loadModel("../models/buzz/buzzlightyLeftHand.obj");
 	modelBuzzLeftHand.setShader(&shaderMulLighting);
+
+	//Model mayow
+	modelMayow.loadModel("../models/mayow/personaje2.fbx");
+	modelMayow.setShader(&shaderMulLighting);
+
+	//Model bob
+	modelBob.loadModel("../models/boblampclean/boblampclean.md5anim");
+	modelBob.setShader(&shaderMulLighting);
+	
+	//Model cowboy
+	modelCowboy.loadModel("../models/cowboy/Character Running.fbx");
+	modelCowboy.setShader(&shaderMulLighting);
+
+	//Model cyborg
+	modelCyborg.loadModel("../models/cyborg/cyborg.fbx");
+	modelCyborg.setShader(&shaderMulLighting);
 
 	camera->setPosition(glm::vec3(0.0, 3.0, 4.0));
 	
@@ -768,6 +793,10 @@ void applicationLoop() {
 	matrixModelRock = glm::translate(matrixModelRock, glm::vec3(-3.0, 0.0, 2.0));
 
 	modelMatrixHeli = glm::translate(modelMatrixHeli, glm::vec3(5.0, 10.0, -5.0));
+	int stateHeli = 0;
+	float alturaHeli = 10.0;
+	float maxAlturaHeli = 0.0;
+	int countHeli = 0;
 
 	modelMatrixAircraft = glm::translate(modelMatrixAircraft, glm::vec3(10.0, 2.0, -17.5));
 
@@ -1303,8 +1332,8 @@ void applicationLoop() {
 		}
 
 		// Constantes de animaciones
-		rotHelHelY += 0.5;
-		rotHelHelBack += 0.5;
+		//rotHelHelY += 0.5;
+		//rotHelHelBack += 0.5;
 
 		glfwSwapBuffers(window);
 	}
