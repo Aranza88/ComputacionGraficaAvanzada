@@ -1,4 +1,3 @@
-
 #ifndef BUZZ_H
 #define BUZZ_H
 
@@ -30,7 +29,7 @@
 #include "AbstractModel.h"
 #include "Model.h"
 
-class DLL_PUBLIC Buzz : public AbstractModel
+class DLL_PUBLIC Buzz : public Model
 {
 public:
     Buzz();
@@ -38,31 +37,31 @@ public:
     translate(glm::vec3 distance);
     rotate(float angle, glm::vec3 axis);
     scale(glm::vec3 scale);
-	~Buzz();
-	//Buzz right
-	Model modelBuzzRightWing2;
-	Model modelBuzzRightWing1;
-	Model modelBuzzRightTigh;
-	Model modelBuzzRightHand;
-	Model modelBuzzRightForearm;
-	Model modelBuzzRightFoot;
-	Model modelBuzzRightCalf;
-	Model modelBuzzRightArm;
-	//Buzz left
-	Model modelBuzzLeftWing2;
-	Model modelBuzzLeftWing1;
-	Model modelBuzzLeftTigh;
-	Model modelBuzzLeftHand;
-	Model modelBuzzLeftForearm;
-	Model modelBuzzLeftFoot;
-	Model modelBuzzLeftCalf;
-	Model modelBuzzLeftArm;
-	//Buzz middle
-	Model modelBuzzTorso;
-	Model modelBuzzHip;
-	Model modelBuzzHead;
-	//Matriz principal
-	glm::mat4 modelMatrixBuzz = glm::mat4(1.0f);
+    ~Buzz();
+    //Buzz right
+    Model modelBuzzRightWing2;
+    Model modelBuzzRightWing1;
+    Model modelBuzzRightTigh;
+    Model modelBuzzRightHand;
+    Model modelBuzzRightForearm;
+    Model modelBuzzRightFoot;
+    Model modelBuzzRightCalf;
+    Model modelBuzzRightArm;
+    //Buzz left
+    Model modelBuzzLeftWing2;
+    Model modelBuzzLeftWing1;
+    Model modelBuzzLeftTigh;
+    Model modelBuzzLeftHand;
+    Model modelBuzzLeftForearm;
+    Model modelBuzzLeftFoot;
+    Model modelBuzzLeftCalf;
+    Model modelBuzzLeftArm;
+    //Buzz middle
+    Model modelBuzzTorso;
+    Model modelBuzzHip;
+    Model modelBuzzHead;
+    //Matriz principal
+    glm::mat4 modelMatrixBuzz = glm::mat4(1.0f);
 };
 
 #endif // BUZZ_H
