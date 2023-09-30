@@ -1,5 +1,5 @@
 #include "Headers/Buzz.h"
-
+/*
 // El constructor carga los modelos, más el usuario tiene que poner su shader
 Buzz::Buzz(Shader *shader)
 {
@@ -76,3 +76,4 @@ Buzz::scale(glm::vec3 scale){ modelMatrixBuzz = glm::scale(modelMatrixBuzz,scale
 
 Buzz::~Buzz() {
 }
+*/
