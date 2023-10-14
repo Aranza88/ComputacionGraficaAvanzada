@@ -59,7 +59,7 @@ uniform vec2 scaleUV;
 uniform sampler2D backgroundTexture;
 uniform sampler2D textureR;
 uniform sampler2D textureG;
-uniform sampler2D btextureB;
+uniform sampler2D textureB;
 uniform sampler2D textureBlendMap;
 
 vec3 calculateDirectionalLight(Light light, vec3 direction){
@@ -73,7 +73,7 @@ vec3 calculateDirectionalLight(Light light, vec3 direction){
 	vec4 colorTextureR = texture(textureR, tiledCoords) * blendMapColor.r;
 	vec4 colorTextureG = texture(textureG, tiledCoords) * blendMapColor.g;
 	vec4 colorTextureB = texture(textureB, tiledCoords) * blendMapColor.b;
-	vec3 totalColor = colorTextureBackground + colorTextureR + colorTextureG + colorTextureB;
+	vec4 totalColor = colorTextureBackground + colorTextureR + colorTextureG + colorTextureB;
 
 	//vec4 backgroundTextureColor = texture(backgroundTexture, tiledCoords);
 	//vec4 totalColor = backgroundTextureColor;

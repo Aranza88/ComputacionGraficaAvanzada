@@ -66,6 +66,7 @@ Box boxWalls;
 Box boxHighway;
 Box boxLandingPad;
 Sphere esfera1(10, 10);
+Box cubo;
 // Models complex instances
 Model modelRock;
 Model modelAircraft;
@@ -122,6 +123,7 @@ Model modelWood;
 
 //
 GLuint textureCespedID, textureWallID, textureWindowID, textureHighwayID, textureLandingPadID;
+GLuint textureWaterID, textureSpongeID, textureStarsID;
 GLuint skyboxTextureID;
 
 GLenum types[6] = {
@@ -296,6 +298,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	esfera1.init();
 	esfera1.setShader(&shaderMulLightingMT);
+
+	cubo.init();
+	cubo.setShader(&shaderMulLightingMT);
 
 	modelRock.loadModel("../models/rock/rock.obj");
 	modelRock.setShader(&shaderMulLighting);
@@ -562,6 +567,66 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	else 
 		std::cout << "Fallo la carga de textura" << std::endl;
 	textureLandingPad.freeImage(); // Liberamos memoria
+	
+	// Definiendo la textura
+	Texture textureSponge("../Textures/spongeTexture.jpg");
+	textureSponge.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureSpongeID); // Creando el id de la textura del landingpad
+	glBindTexture(GL_TEXTURE_2D, textureSpongeID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureSponge.getData()){
+		// Transferir los datos de la imagen a la tarjeta
+		std::cout << "Numero de canales :=> " << textureSponge.getChannels() << std::endl;
+		glTexImage2D(GL_TEXTURE_2D, 0, textureSponge.getChannels() == 3 ? GL_RGB : GL_RGBA, textureSponge.getWidth(), textureSponge.getHeight(), 0,
+		textureSponge.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureSponge.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else 
+		std::cout << "Fallo la carga de textura" << std::endl;
+	textureSponge.freeImage(); // Liberamos memoria
+
+	// Definiendo la textura
+	Texture textureWater("../Textures/waterTexture.jpg");
+	textureWater.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureWaterID); // Creando el id de la textura del landingpad
+	glBindTexture(GL_TEXTURE_2D, textureWaterID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureWater.getData()){
+		// Transferir los datos de la imagen a la tarjeta
+		std::cout << "Numero de canales :=> " << textureWater.getChannels() << std::endl;
+		glTexImage2D(GL_TEXTURE_2D, 0, textureWater.getChannels() == 3 ? GL_RGB : GL_RGBA, textureWater.getWidth(), textureWater.getHeight(), 0,
+		textureWater.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureWater.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else 
+		std::cout << "Fallo la carga de textura" << std::endl;
+	textureWater.freeImage(); // Liberamos memoria
+	
+	// Definiendo la textura
+	Texture textureStars("../Textures/stars.jpg");
+	textureStars.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureStarsID); // Creando el id de la textura del landingpad
+	glBindTexture(GL_TEXTURE_2D, textureStarsID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureStars.getData()){
+		// Transferir los datos de la imagen a la tarjeta
+		std::cout << "Numero de canales :=> " << textureStars.getChannels() << std::endl;
+		glTexImage2D(GL_TEXTURE_2D, 0, textureStars.getChannels() == 3 ? GL_RGB : GL_RGBA, textureStars.getWidth(), textureStars.getHeight(), 0,
+		textureStars.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureStars.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else 
+		std::cout << "Fallo la carga de textura" << std::endl;
+	textureStars.freeImage(); // Liberamos memoria
 
 }
 
@@ -584,6 +649,7 @@ void destroy() {
 	boxHighway.destroy();
 	boxLandingPad.destroy();
 	esfera1.destroy();
+	cubo.destroy();
 
 	// Custom objects Delete
 	modelAircraft.destroy();
@@ -641,6 +707,9 @@ void destroy() {
 	glDeleteTextures(1, &textureWindowID);
 	glDeleteTextures(1, &textureHighwayID);
 	glDeleteTextures(1, &textureLandingPadID);
+	glDeleteTextures(1, &textureWaterID);
+	glDeleteTextures(1, &textureSpongeID);
+	glDeleteTextures(1, &textureStarsID);
 
 	// Cube Maps Delete
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
@@ -1148,16 +1217,29 @@ void applicationLoop() {
 		esfera1.render();
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureLandingPadID);
+		glBindTexture(GL_TEXTURE_2D, textureStarsID);
 		shaderMulLightingMT.setInt("texture2", 0);
 		glActiveTexture(GL_TEXTURE3);
-		glBindTexture(GL_TEXTURE_2D, textureWindowID);
+		glBindTexture(GL_TEXTURE_2D, textureStarsID);
 		shaderMulLightingMT.setInt("texture1", 3);
 		esfera1.setScale(glm::vec3(10.0, 10.0, 10.0));
 		esfera1.setPosition(glm::vec3(3.0f, 2.0f, 10.0f));
 		//esfera1.enableWireMode();
 		esfera1.render();
 		esfera1.enableFillMode();
+		
+		/*******************************************
+		 * Cubo
+		*********************************************/
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureWaterID);
+		shaderMulLightingMT.setInt("texture1", 0);
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, textureSpongeID);
+		shaderMulLightingMT.setInt("texture2", 3);
+		cubo.setScale(glm::vec3(3.0, 3.0, 3.0));
+		cubo.setPosition(glm::vec3(-3.0f, 2.0f, -10.0f));
+		cubo.render();
 
 		/******************************************
 		 * Landing pad
